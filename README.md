@@ -14,19 +14,19 @@ Simple application that downloads random Lightshot screenshots, my original vers
 
     b. Then install each of the libraries using these commands
 
-    pip install bs4
+           pip install bs4
     
-    pip install BeautifulSoup
+           pip install BeautifulSoup
 
-    pip install xlsxwriter
+           pip install xlsxwriter
 
-    pip install pytesseract
+           pip install pytesseract
 
-    pip install cfscrape
+           pip install cfscrape
 
-    pip install cloudscraper
+           pip install cloudscraper
 
-    pip install tkinter
+           pip install tkinter
 
 4. Open cmd, and type cd followed by the folder where you downloaded LightScrape.py (Example: cd c:\user\downloads)
 5. Type python LightScrape.py in the cmd window
