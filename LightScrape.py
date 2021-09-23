@@ -170,13 +170,13 @@ while(n<int(amount)):
         if(xlsx == 'y'):
             currentnumworkshett = currentnumworkshett+1
             worksheet.write('A'+str(currentnumworkshett+1), n)
-            worksheet.write('B'+str(currentnumworkshett+1), round(n/int(amount))) # remove till . add %
+            worksheet.write('B'+str(currentnumworkshett+1), str(round((n/int(amount)*100))) + "%")
             worksheet.write('C'+str(currentnumworkshett+1), link)
             worksheet.write('D'+str(currentnumworkshett+1), url)
             worksheet.write('E'+str(currentnumworkshett+1), mainfolder+name)
         
         # Output
-        print(str(n) + " | " + str(round((n/int(amount)*100))) + " percent | " + str(link) + " | " + str(url) + " | " + mainfolder + name)
+        print(str(n) + " | " + str(round((n/int(amount)*100))) + "% Done | " + str(link) + " | " + str(url) + " | " + mainfolder + name)
 
 # Close xlsx file
 workbook.close()
