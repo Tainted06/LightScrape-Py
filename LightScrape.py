@@ -48,6 +48,10 @@ clearConsole()
 print("Folder to store scraped images and other files: ", end="", flush=True)
 time.sleep(1)
 mainfolderr = filedialog.askdirectory()
+if(mainfolderr == ''):
+    clearConsole()
+    print("Please choose a folder!")
+    exit()
 print(mainfolderr)
 mainfolder = mainfolderr + '/'
 char = input("How many charecters after https://prnt.sc/ do you want to scrape? (6 or 7 recommended, do not go above 7): ")
@@ -172,7 +176,7 @@ while(n<int(amount)):
             worksheet.write('E'+str(currentnumworkshett+1), mainfolder+name)
         
         # Output
-        print(str(n) + " | " + str(round(n/int(amount))) + " percent | " + str(link) + " | " + str(url) + " | " + mainfolder + name)
+        print(str(n) + " | " + str(round((n/int(amount)*100))) + " percent | " + str(link) + " | " + str(url) + " | " + mainfolder + name)
 
 # Close xlsx file
 workbook.close()
