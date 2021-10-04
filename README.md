@@ -47,6 +47,13 @@ DO NOT CONTINUE USING THIS PROGRAM OR THE SOURCE CODE IF YOU DO NOT AGREE WITH T
 
 # Change Log
 
+## v1.1
+Small changes to make the code run better
+- Code will continue if it gets an error
+- Logs the error
+- Changed how random combination is generated to be more efficient 
+- Discord Webhook Logging
+
 ## v1.0
 First official release 
 - Scrapes images from lightshot

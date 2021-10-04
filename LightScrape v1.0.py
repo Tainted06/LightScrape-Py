@@ -8,6 +8,7 @@ import pytesseract
 import cfscrape
 import cloudscraper
 from tkinter import Tk, filedialog
+import requests
 
 # Clear console
 clearConsole = lambda: os.system('cls' if os.name in ('nt', 'dos') else 'clear')
@@ -90,6 +91,24 @@ if(xlsx != 'n'):
         clearConsole()
         print("Only Type y or n!")
         exit()
+discordlogging = input("Do you want the output to be sent to a discord webhook? (y or n): ")
+if(discordlogging != 'n'):
+    if(discordlogging != 'y'):
+        clearConsole()
+        print("Only Type y or n!")
+        exit()
+if(discordlogging == 'y'):
+    webhook = input("Enter your discord webhook: ")
+    try:
+        webhookpage = requests.get(webhook)
+        if(str(webhookpage) != '<Response [200]>'):
+            clearConsole()
+            print("Error! Webhook does not work!")
+            exit()
+    except Exception as t:
+        clearConsole()
+        print("Error! " + str(t))
+        exit()
 
 clearConsole()
 
@@ -167,8 +186,26 @@ while(n<int(amount)):
             
             # Output
             print(str(n) + " | " + str(round((n/int(amount)*100))) + "% Done | " + str(link) + " | " + str(url) + " | " + mainfolder + name)
+
+            # Discord Logging
+            if(discordlogging == 'y'):
+                try:
+                    requests.post(webhook, json = {"content":str(n) + " | " + str(round((n/int(amount)*100))) + "% Done | " + str(link) + " | " + str(url) + " | " + mainfolder + name})
+                except Exception as ecp:
+                    print("Failed to send to webhook - " + ecp)
+
+    # Error Reporting
     except Exception as e:
-        print(str(n) + " | " + str(round((n/int(amount)*100))) + "% Done | " + str(link) + " | FAILED | " + e)
+
+        # Print Error Data
+        print(str(n) + " | " + str(round((n/int(amount)*100))) + "% Done | " + str(link) + " | FAILED | " + str(e))
+
+        # Send Error Data To Webhook
+        if(discordlogging == 'y'):
+            try:
+                requests.post(webhook, json = {"content":str(n) + " | " + str(round((n/int(amount)*100))) + "% Done | " + str(link) + " | FAILED | " + str(e)})
+            except Exception as ecp:
+                print("Failed to send to webhook - " + ecp)
 
 # Close xlsx file
 workbook.close()
