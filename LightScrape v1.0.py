@@ -190,7 +190,7 @@ while(n<int(amount)):
             # Discord Logging
             if(discordlogging == 'y'):
                 try:
-                    requests.post(webhook, json = {"content":str(n) + " | " + str(round((n/int(amount)*100))) + "% Done | " + str(link) + " | " + str(url) + " | " + mainfolder + name})
+                    requests.post(webhook, json = {"content":"```"+str(n) + " | " + str(round((n/int(amount)*100))) + "% Done | " + str(link) + " | " + str(url) + " | " + mainfolder + name+"```"})
                 except Exception as ecp:
                     print("Failed to send to webhook - " + ecp)
 
@@ -203,7 +203,7 @@ while(n<int(amount)):
         # Send Error Data To Webhook
         if(discordlogging == 'y'):
             try:
-                requests.post(webhook, json = {"content":str(n) + " | " + str(round((n/int(amount)*100))) + "% Done | " + str(link) + " | FAILED | " + str(e)})
+                requests.post(webhook, json = {"content":"```"+str(n) + " | " + str(round((n/int(amount)*100))) + "% Done | " + str(link) + " | FAILED | " + str(e)+"```"})
             except Exception as ecp:
                 print("Failed to send to webhook - " + ecp)
 
