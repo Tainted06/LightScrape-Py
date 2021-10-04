@@ -5,6 +5,17 @@ Simple application that downloads random Lightshot screenshots, my original vers
 
 ### WARNING: These are random images taken by people, because of this there may be gore, NSFW, obscene images, and more
 
+## Terms
+This program and source code is only for educational purposes. It shows the dangers of using a screenshot tool that automatically uploads images to a image host.
+
+Any damage caused by this program is not the creators responsibility
+
+These are random images taken by people, because of this there may be gore, NSFW, obscene images, and more
+
+Only continue if you don't mind seeing images as such
+
+DO NOT CONTINUE USING THIS PROGRAM OR THE SOURCE CODE IF YOU DO NOT AGREE WITH THE ABOVE
+
 ## Usage:
 1. Install Python on your computer
 2. Download the LightScrape.py file
@@ -34,13 +45,11 @@ Simple application that downloads random Lightshot screenshots, my original vers
 
 ![image](Assets/ssjsMHl8.gif)
 
-## Terms
-This program and source code is only for educational purposes. It shows the dangers of using a screenshot tool that automatically uploads images to a image host.
+# Change Log
 
-Any damage caused by this program is not the creators responsibility
-
-These are random images taken by people, because of this there may be gore, NSFW, obscene images, and more
-
-Only continue if you don't mind seeing images as such
-
-DO NOT CONTINUE USING THIS PROGRAM OR THE SOURCE CODE IF YOU DO NOT AGREE WITH THE ABOVE
+## v1.0
+First official release 
+- Scrapes images from lightshot
+- OCR Option
+- Save results to xlsx option
+- Custom charecters after url to scrape

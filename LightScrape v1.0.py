@@ -115,68 +115,60 @@ if(xlsx == 'y'):
 n = 0
 while(n<int(amount)):
     n = n+1
-    # Setting random combination
-    if(int(char) == 1):
-        combination = random.choice(charr) 
-    if(int(char) == 2):
-        combination = random.choice(charr) + random.choice(charr) 
-    if(int(char) == 3):
-        combination = random.choice(charr) + random.choice(charr) + random.choice(charr) 
-    if(int(char) == 4):
-        combination = random.choice(charr) + random.choice(charr) + random.choice(charr) + random.choice(charr) 
-    if(int(char) == 5):
-        combination = random.choice(charr) + random.choice(charr) + random.choice(charr) + random.choice(charr) + random.choice(charr) 
-    if(int(char) == 6):
-        combination = random.choice(charr) + random.choice(charr) + random.choice(charr) + random.choice(charr) + random.choice(charr) + random.choice(charr)
-    if(int(char) == 7):
-        combination = random.choice(charr) + random.choice(charr) + random.choice(charr) + random.choice(charr) + random.choice(charr) + random.choice(charr) + random.choice(charr)
-    if(int(char) == 8):
-        combination = random.choice(charr) + random.choice(charr) + random.choice(charr) + random.choice(charr) + random.choice(charr) + random.choice(charr) + random.choice(charr) + random.choice(charr)
-
-    # Random Link
-    link = 'https://prnt.sc/' + combination
-
-    # Scraping for image link
-    scraper = cloudscraper.create_scraper()
-    page = scraper.get(link).text
-    soup = BeautifulSoup(page, "html.parser")
-    title = soup.find("meta", property="og:image")
-    url = title["content"] if title else "not found"
-
-    if(url != "not found"):
-
-        # Adding https: to the url if the url does not have it
-        if url[0] != 'h':
-            url = 'https:' + url
-
-        # Downloading the image
-        downloadscraper = cfscrape.create_scraper()
-        urll = url.strip()
-        cfurl = downloadscraper.get(urll).content
-        name = urll.split('/')[-1]
-        with open(mainfolder+name, 'wb') as f:
-            f.write(cfurl)
-        f.close()
-
-        # OCR if ocr is selected 
-        if(ocr == 'y'):
-            pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
-            imgg = cv2.imread(mainfolder+name)
-            imgg = cv2.cvtColor(imgg, cv2.COLOR_BGR2RGB)
-            text = pytesseract.image_to_string(imgg)
-            o.write('\n============================== '+name+' =============================='+text+'\n')
-
-        # Save output in xlsx if selected
-        if(xlsx == 'y'):
-            currentnumworkshett = currentnumworkshett+1
-            worksheet.write('A'+str(currentnumworkshett+1), n)
-            worksheet.write('B'+str(currentnumworkshett+1), str(round((n/int(amount)*100))) + "%")
-            worksheet.write('C'+str(currentnumworkshett+1), link)
-            worksheet.write('D'+str(currentnumworkshett+1), url)
-            worksheet.write('E'+str(currentnumworkshett+1), mainfolder+name)
+    try:
+        # Setting random combination
+        combination = ''
+        z = 0
+        while (z < int(char)):
+            combination = combination + random.choice(charr) 
+            z = z + 1
         
-        # Output
-        print(str(n) + " | " + str(round((n/int(amount)*100))) + "% Done | " + str(link) + " | " + str(url) + " | " + mainfolder + name)
+        # Random Link
+        link = 'https://prnt.sc/' + combination
+
+        # Scraping for image link
+        scraper = cloudscraper.create_scraper()
+        page = scraper.get(link).text
+        soup = BeautifulSoup(page, "html.parser")
+        title = soup.find("meta", property="og:image")
+        url = title["content"] if title else "not found"
+
+        if(url != "not found"):
+
+            # Adding https: to the url if the url does not have it
+            if url[0] != 'h':
+                url = 'https:' + url
+
+            # Downloading the image
+            downloadscraper = cfscrape.create_scraper()
+            urll = url.strip()
+            cfurl = downloadscraper.get(urll).content
+            name = urll.split('/')[-1]
+            with open(mainfolder+name, 'wb') as f:
+                f.write(cfurl)
+            f.close()
+
+            # OCR if ocr is selected 
+            if(ocr == 'y'):
+                pytesseract.pytesseract.tesseract_cmd = r'C:\\Program Files\\Tesseract-OCR\\tesseract.exe'
+                imgg = cv2.imread(mainfolder+name)
+                imgg = cv2.cvtColor(imgg, cv2.COLOR_BGR2RGB)
+                text = pytesseract.image_to_string(imgg)
+                o.write('\n============================== '+name+' =============================='+text+'\n')
+
+            # Save output in xlsx if selected
+            if(xlsx == 'y'):
+                currentnumworkshett = currentnumworkshett+1
+                worksheet.write('A'+str(currentnumworkshett+1), n)
+                worksheet.write('B'+str(currentnumworkshett+1), str(round((n/int(amount)*100))) + "%")
+                worksheet.write('C'+str(currentnumworkshett+1), link)
+                worksheet.write('D'+str(currentnumworkshett+1), url)
+                worksheet.write('E'+str(currentnumworkshett+1), mainfolder+name)
+            
+            # Output
+            print(str(n) + " | " + str(round((n/int(amount)*100))) + "% Done | " + str(link) + " | " + str(url) + " | " + mainfolder + name)
+    except Exception as e:
+        print(str(n) + " | " + str(round((n/int(amount)*100))) + "% Done | " + str(link) + " | FAILED | " + e)
 
 # Close xlsx file
 workbook.close()
